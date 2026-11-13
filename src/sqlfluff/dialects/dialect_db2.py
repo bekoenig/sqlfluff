@@ -357,6 +357,80 @@ class CallStoredProcedureSegment(BaseSegment):
     )
 
 
+class ColumnConstraintSegment(ansi.ColumnConstraintSegment):
+    """A column option; each ``CREATE TABLE`` column can have 0 or more.
+
+    Db2 supports a wider set of column options than ANSI, including
+    constraint attributes, LOB options and generated timestamp columns.
+
+    https://www.ibm.com/docs/en/db2/11.5?topic=statements-create-table
+    """
+
+    type = "column_constraint_segment"
+    match_grammar = Sequence(
+        Sequence(
+            "CONSTRAINT",
+            Ref("ObjectReferenceSegment"),  # Constraint name
+            optional=True,
+        ),
+        OneOf(
+            Sequence(Ref.keyword("NOT", optional=True), "NULL"),
+            Sequence("CHECK", Bracketed(Ref("ExpressionSegment"))),
+            Sequence(  # [WITH] DEFAULT <value>
+                Ref.keyword("WITH", optional=True),
+                "DEFAULT",
+                Ref("ColumnConstraintDefaultGrammar"),
+            ),
+            Ref("PrimaryKeyGrammar"),
+            Ref("UniqueKeyGrammar"),
+            Ref("AutoIncrementGrammar"),
+            Ref("ReferenceDefinitionGrammar"),
+            Ref("CommentClauseSegment"),
+            Sequence("COLLATE", Ref("CollationReferenceSegment")),
+            Ref("ColumnGeneratedGrammar"),
+            # Db2 generated timestamp columns.
+            Sequence(
+                "GENERATED",
+                "ALWAYS",
+                "FOR",
+                "EACH",
+                "ROW",
+                "ON",
+                "UPDATE",
+                "AS",
+                "ROW",
+                "CHANGE",
+                "TIMESTAMP",
+            ),
+            Sequence("GENERATED", "ALWAYS", "AS", "ROW", OneOf("BEGIN", "END")),
+            Sequence("GENERATED", "ALWAYS", "AS", "TRANSACTION", "START", "ID"),
+            # Db2 constraint attributes.
+            "ENFORCED",
+            Sequence("NOT", "ENFORCED"),
+            "TRUSTED",
+            Sequence("NOT", "TRUSTED"),
+            Sequence("ENABLE", "QUERY", "OPTIMIZATION"),
+            Sequence("DISABLE", "QUERY", "OPTIMIZATION"),
+            # Db2 column options.
+            Sequence("INLINE", "LENGTH", Ref("NumericLiteralSegment")),
+            "LOGGED",
+            Sequence("NOT", "LOGGED"),
+            "COMPACT",
+            Sequence("NOT", "COMPACT"),
+            Sequence("COMPRESS", "SYSTEM", "DEFAULT"),
+            Sequence("NOT", "HIDDEN"),
+            Sequence("IMPLICITLY", "HIDDEN"),
+            Sequence(
+                Ref.keyword("COLUMN", optional=True),
+                "SECURED",
+                "WITH",
+                Ref("ObjectReferenceSegment"),
+            ),
+            Sequence("SCOPE", Ref("TableReferenceSegment")),
+        ),
+    )
+
+
 class CopyOptionsSegment(BaseSegment):
     """Copy-options when using like or as for creating a table.
 

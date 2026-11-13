@@ -1,0 +1,361 @@
+# YML test files are auto-generated from SQL files and should not be edited by
+# hand. To help enforce this, the "hash" field in the file must match a hash
+# computed by SQLFluff when running the tests. Please run
+# `python test/generate_parse_fixture_yml.py`  to generate them after adding or
+# altering SQL files.
+_hash: 27112c18e3e4b713a81d458778b36d5a01cc022176822b80bbaa7be8ba9beda9
+file:
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_defaults
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: WITH
+          - keyword: DEFAULT
+          - numeric_literal: '0'
+      - comma: ','
+      - column_definition:
+          naked_identifier: b
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+            keyword: DEFAULT
+            null_literal: 'NULL'
+      - comma: ','
+      - column_definition:
+          naked_identifier: c
+          data_type:
+            keyword: TIMESTAMP
+          column_constraint_segment:
+            keyword: DEFAULT
+            bare_function:
+            - keyword: CURRENT
+            - keyword: TIMESTAMP
+      - comma: ','
+      - column_definition:
+          naked_identifier: d
+          data_type:
+            data_type_identifier: VARCHAR
+            bracketed_arguments:
+              bracketed:
+                start_bracket: (
+                numeric_literal: '10'
+                end_bracket: )
+          column_constraint_segment:
+            keyword: DEFAULT
+            quoted_literal: "'x'"
+      - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_lob_options
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: CLOB
+          column_constraint_segment:
+          - keyword: INLINE
+          - keyword: LENGTH
+          - numeric_literal: '100'
+      - comma: ','
+      - column_definition:
+        - naked_identifier: b
+        - data_type:
+            data_type_identifier: BLOB
+        - column_constraint_segment:
+          - keyword: NOT
+          - keyword: LOGGED
+        - column_constraint_segment:
+          - keyword: NOT
+          - keyword: COMPACT
+      - comma: ','
+      - column_definition:
+        - naked_identifier: c
+        - data_type:
+            data_type_identifier: DBCLOB
+        - column_constraint_segment:
+            keyword: LOGGED
+        - column_constraint_segment:
+            keyword: COMPACT
+      - comma: ','
+      - column_definition:
+          naked_identifier: d
+          data_type:
+            data_type_identifier: CLOB
+          column_constraint_segment:
+            keyword: LOGGED
+      - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_constraint_attributes
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+        - naked_identifier: a
+        - data_type:
+            data_type_identifier: INT
+        - column_constraint_segment:
+          - keyword: CONSTRAINT
+          - object_reference:
+              naked_identifier: pk
+          - keyword: PRIMARY
+          - keyword: KEY
+        - column_constraint_segment:
+            keyword: ENFORCED
+      - comma: ','
+      - column_definition:
+        - naked_identifier: b
+        - data_type:
+            data_type_identifier: INT
+        - column_constraint_segment:
+            keyword: UNIQUE
+        - column_constraint_segment:
+          - keyword: NOT
+          - keyword: ENFORCED
+      - comma: ','
+      - column_definition:
+        - naked_identifier: c
+        - data_type:
+            data_type_identifier: INT
+        - column_constraint_segment:
+            keyword: REFERENCES
+            table_reference:
+              naked_identifier: p
+            bracketed:
+              start_bracket: (
+              column_reference:
+                naked_identifier: id
+              end_bracket: )
+        - column_constraint_segment:
+            keyword: TRUSTED
+      - comma: ','
+      - column_definition:
+        - naked_identifier: d
+        - data_type:
+            data_type_identifier: INT
+        - column_constraint_segment:
+            keyword: CHECK
+            bracketed:
+              start_bracket: (
+              expression:
+                column_reference:
+                  naked_identifier: d
+                comparison_operator:
+                  raw_comparison_operator: '>'
+                numeric_literal: '0'
+              end_bracket: )
+        - column_constraint_segment:
+          - keyword: NOT
+          - keyword: TRUSTED
+        - column_constraint_segment:
+          - keyword: DISABLE
+          - keyword: QUERY
+          - keyword: OPTIMIZATION
+      - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_column_options
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: COMPRESS
+          - keyword: SYSTEM
+          - keyword: DEFAULT
+      - comma: ','
+      - column_definition:
+          naked_identifier: b
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: NOT
+          - keyword: HIDDEN
+      - comma: ','
+      - column_definition:
+          naked_identifier: c
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: IMPLICITLY
+          - keyword: HIDDEN
+      - comma: ','
+      - column_definition:
+          naked_identifier: d
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: COLUMN
+          - keyword: SECURED
+          - keyword: WITH
+          - object_reference:
+              naked_identifier: lbl
+      - comma: ','
+      - column_definition:
+          naked_identifier: e
+          data_type:
+            data_type_identifier: INT
+          column_constraint_segment:
+          - keyword: SECURED
+          - keyword: WITH
+          - object_reference:
+              naked_identifier: lbl
+      - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_ref_scope
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: REF
+          bracketed:
+            start_bracket: (
+            word: my_type
+            end_bracket: )
+          column_constraint_segment:
+            keyword: SCOPE
+            table_reference:
+              naked_identifier: my_table
+        end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_generated_timestamps
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            keyword: TIMESTAMP
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: FOR
+          - keyword: EACH
+          - keyword: ROW
+          - keyword: 'ON'
+          - keyword: UPDATE
+          - keyword: AS
+          - keyword: ROW
+          - keyword: CHANGE
+          - keyword: TIMESTAMP
+      - comma: ','
+      - column_definition:
+          naked_identifier: b
+          data_type:
+            keyword: TIMESTAMP
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: AS
+          - keyword: ROW
+          - keyword: BEGIN
+      - comma: ','
+      - column_definition:
+          naked_identifier: c
+          data_type:
+            keyword: TIMESTAMP
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: AS
+          - keyword: ROW
+          - keyword: END
+      - comma: ','
+      - column_definition:
+          naked_identifier: d
+          data_type:
+            keyword: TIMESTAMP
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: AS
+          - keyword: TRANSACTION
+          - keyword: START
+          - keyword: ID
+      - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_period
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            keyword: TIMESTAMP
+            bracketed_arguments:
+              bracketed:
+                start_bracket: (
+                numeric_literal: '12'
+                end_bracket: )
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: AS
+          - keyword: ROW
+          - keyword: BEGIN
+      - comma: ','
+      - column_definition:
+          naked_identifier: b
+          data_type:
+            keyword: TIMESTAMP
+            bracketed_arguments:
+              bracketed:
+                start_bracket: (
+                numeric_literal: '12'
+                end_bracket: )
+          column_constraint_segment:
+          - keyword: GENERATED
+          - keyword: ALWAYS
+          - keyword: AS
+          - keyword: ROW
+          - keyword: END
+      - comma: ','
+      - column_definition:
+          naked_identifier: PERIOD
+          data_type:
+            data_type_identifier: SYSTEM_TIME
+          bracketed:
+          - start_bracket: (
+          - word: a
+          - comma: ','
+          - word: b
+          - end_bracket: )
+      - end_bracket: )
+- statement_terminator: ;
