@@ -457,6 +457,54 @@ class DeclareGlobalTempTableSegment(BaseSegment):
     )
 
 
+class TableDimensionSegment(BaseSegment):
+    """A dimension of a Db2 multidimensional clustering (MDC) table."""
+
+    type = "table_dimension"
+    match_grammar = OneOf(
+        Ref("ColumnReferenceSegment"),
+        Bracketed(Delimited(Ref("ColumnReferenceSegment"))),
+    )
+
+
+class KeySequenceClauseSegment(BaseSegment):
+    """The ``KEY SEQUENCE`` clause of a Db2 range-clustered table.
+
+    https://www.ibm.com/docs/en/db2/11.5?topic=statements-create-table
+    """
+
+    type = "key_sequence_clause"
+    match_grammar = Sequence(
+        "KEY",
+        "SEQUENCE",
+        Bracketed(
+            Delimited(
+                Sequence(
+                    Ref("ColumnReferenceSegment"),
+                    Sequence(
+                        "STARTING",
+                        "FROM",
+                        Ref("NumericLiteralSegment"),
+                        optional=True,
+                    ),
+                    Sequence(
+                        "ENDING",
+                        "AT",
+                        Ref("NumericLiteralSegment"),
+                        optional=True,
+                    ),
+                )
+            )
+        ),
+        OneOf(
+            Sequence("ALLOW", "OVERFLOW"),
+            Sequence("DISALLOW", "OVERFLOW"),
+            optional=True,
+        ),
+        Sequence("PCTFREE", Ref("NumericLiteralSegment"), optional=True),
+    )
+
+
 class TableOrganizationClauseSegment(BaseSegment):
     """Db2 ``ORGANIZE BY`` clause for table creation.
 
@@ -467,7 +515,28 @@ class TableOrganizationClauseSegment(BaseSegment):
     match_grammar = Sequence(
         "ORGANIZE",
         "BY",
-        OneOf("ROW", "COLUMN"),
+        OneOf(
+            Sequence(
+                "ROW",
+                Ref.keyword("USING", optional=True),
+                Ref.keyword("DIMENSIONS", optional=True),
+                Bracketed(
+                    Delimited(Ref("TableDimensionSegment")),
+                    optional=True,
+                ),
+                Ref("KeySequenceClauseSegment", optional=True),
+                Sequence("INSERT", "TIME", optional=True),
+            ),
+            # Legacy spellings which put the organization directly after
+            # ``ORGANIZE BY``.
+            Sequence(
+                "DIMENSIONS",
+                Bracketed(Delimited(Ref("TableDimensionSegment"))),
+            ),
+            Ref("KeySequenceClauseSegment"),
+            Sequence("INSERT", "TIME"),
+            "COLUMN",
+        ),
     )
 
 
@@ -507,6 +576,7 @@ class TablespaceClauseSegment(BaseSegment):
     match_grammar = Sequence(
         "IN",
         Ref("TablespaceReferenceSegment"),
+        Sequence(Ref.keyword("NO", optional=True), "CYCLE", optional=True),
         Sequence(
             "INDEX",
             "IN",

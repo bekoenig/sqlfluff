@@ -3,7 +3,7 @@
 # computed by SQLFluff when running the tests. Please run
 # `python test/generate_parse_fixture_yml.py`  to generate them after adding or
 # altering SQL files.
-_hash: 2d419975fb45be948251e7e9324faed6b78792fd3bf085c39e53acb9d4d74285
+_hash: 09dff1c915a38603be074981f7967e91ad777c187273c1dd2120ed21a267e971
 file:
 - statement:
     create_table_statement:
@@ -23,6 +23,279 @@ file:
         - keyword: ORGANIZE
         - keyword: BY
         - keyword: ROW
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: USING
+        - bracketed:
+            start_bracket: (
+            table_dimension:
+              column_reference:
+                naked_identifier: a
+            end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: USING
+        - keyword: DIMENSIONS
+        - bracketed:
+            start_bracket: (
+            table_dimension:
+              column_reference:
+                naked_identifier: a
+            end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: USING
+        - keyword: INSERT
+        - keyword: TIME
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: DIMENSIONS
+        - bracketed:
+            start_bracket: (
+            table_dimension:
+              column_reference:
+                naked_identifier: a
+            end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+      - start_bracket: (
+      - column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+      - comma: ','
+      - column_definition:
+          naked_identifier: b
+          data_type:
+            data_type_identifier: INT
+      - end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: USING
+        - bracketed:
+          - start_bracket: (
+          - table_dimension:
+              column_reference:
+                naked_identifier: a
+          - comma: ','
+          - table_dimension:
+              bracketed:
+              - start_bracket: (
+              - column_reference:
+                  naked_identifier: b
+              - comma: ','
+              - column_reference:
+                  naked_identifier: a
+              - end_bracket: )
+          - end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: DIMENSIONS
+        - bracketed:
+            start_bracket: (
+            table_dimension:
+              column_reference:
+                naked_identifier: a
+            end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - key_sequence_clause:
+          - keyword: KEY
+          - keyword: SEQUENCE
+          - bracketed:
+            - start_bracket: (
+            - column_reference:
+                naked_identifier: a
+            - keyword: STARTING
+            - keyword: FROM
+            - numeric_literal: '1'
+            - keyword: ENDING
+            - keyword: AT
+            - numeric_literal: '100'
+            - end_bracket: )
+          - keyword: DISALLOW
+          - keyword: OVERFLOW
+          - keyword: PCTFREE
+          - numeric_literal: '10'
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - key_sequence_clause:
+          - keyword: KEY
+          - keyword: SEQUENCE
+          - bracketed:
+              start_bracket: (
+              column_reference:
+                naked_identifier: a
+              end_bracket: )
+          - keyword: ALLOW
+          - keyword: OVERFLOW
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: ROW
+        - keyword: INSERT
+        - keyword: TIME
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        table_organization_clause:
+        - keyword: ORGANIZE
+        - keyword: BY
+        - keyword: INSERT
+        - keyword: TIME
 - statement_terminator: ;
 - statement:
     create_table_statement:
@@ -173,6 +446,47 @@ file:
         - keyword: IN
         - tablespace_reference:
             naked_identifier: ts3
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        tablespace_clause:
+        - keyword: IN
+        - tablespace_reference:
+            naked_identifier: ts
+        - keyword: CYCLE
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t
+    - bracketed:
+        start_bracket: (
+        column_definition:
+          naked_identifier: a
+          data_type:
+            data_type_identifier: INT
+        end_bracket: )
+    - table_end_clause_segment:
+        tablespace_clause:
+        - keyword: IN
+        - tablespace_reference:
+            naked_identifier: ts
+        - keyword: 'NO'
+        - keyword: CYCLE
 - statement_terminator: ;
 - statement:
     create_table_statement:
