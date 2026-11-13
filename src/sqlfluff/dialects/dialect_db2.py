@@ -329,6 +329,35 @@ db2_dialect.add(
 )
 
 
+class DatatypeSegment(ansi.DatatypeSegment):
+    """A data type.
+
+    Db2 supports additional multi-word aliases for character types, as well
+    as the ``FOR BIT DATA`` modifier.
+
+    https://www.ibm.com/docs/en/db2/11.5?topic=statements-create-table
+    """
+
+    type = "data_type"
+    match_grammar = Sequence(
+        OneOf(
+            Sequence("NATIONAL", "CHARACTER", "LARGE", "OBJECT"),
+            Sequence("NATIONAL", "CHARACTER", "VARYING"),
+            Sequence("NATIONAL", "CHARACTER"),
+            Sequence("NATIONAL", "CHAR", "LARGE", "OBJECT"),
+            Sequence("NATIONAL", "CHAR", "VARYING"),
+            Sequence("NATIONAL", "CHAR"),
+            Sequence("NCHAR", "LARGE", "OBJECT"),
+            Sequence("NCHAR", "VARYING"),
+            Sequence("CHAR", "LARGE", "OBJECT"),
+            Sequence("CHAR", "VARYING"),
+            ansi.DatatypeSegment.match_grammar,
+        ),
+        Ref("BracketedArguments", optional=True),
+        Sequence("FOR", "BIT", "DATA", optional=True),
+    )
+
+
 class BareFunctionSegment(BaseSegment):
     """A function that can be called without parenthesis per ANSI specification.
 
