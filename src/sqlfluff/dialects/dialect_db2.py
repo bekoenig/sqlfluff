@@ -627,6 +627,96 @@ class CreateIndexStatementSegment(ansi.CreateIndexStatementSegment):
     )
 
 
+class CreateTableStatementSegment(ansi.CreateTableStatementSegment):
+    """A ``CREATE TABLE`` statement.
+
+    Db2 supports additional forms for creating a table from a query
+    (``AS``), from an existing table (``LIKE``), including their copy and
+    data options.
+
+    https://www.ibm.com/docs/en/db2/11.5?topic=statements-create-table
+    """
+
+    type = "create_table_statement"
+    match_grammar = Sequence(
+        "CREATE",
+        Ref("OrReplaceGrammar", optional=True),
+        Ref("TemporaryTransientGrammar", optional=True),
+        "TABLE",
+        Ref("IfNotExistsGrammar", optional=True),
+        Ref("TableReferenceSegment"),
+        OneOf(
+            # Columns and comment syntax.
+            Sequence(
+                Bracketed(
+                    Delimited(
+                        OneOf(
+                            Ref("TableConstraintSegment"),
+                            Ref("ColumnDefinitionSegment"),
+                        ),
+                    )
+                ),
+                Ref("CommentClauseSegment", optional=True),
+            ),
+            # Create AS syntax, with an optional column name list:
+            # [(column-name, ...)] AS (fullselect) [data/refresh options]
+            # Refreshable-table options define a materialized query table.
+            Sequence(
+                Bracketed(
+                    Delimited(Ref("SingleIdentifierGrammar")),
+                    optional=True,
+                ),
+                "AS",
+                OptionallyBracketed(Ref("SelectableGrammar")),
+                AnySetOf(
+                    Sequence("WITH", Ref.keyword("NO", optional=True), "DATA"),
+                    Sequence("DATA", "INITIALLY", "DEFERRED"),
+                    Sequence("REFRESH", OneOf("DEFERRED", "IMMEDIATE")),
+                    Sequence(
+                        OneOf("ENABLE", "DISABLE"),
+                        "QUERY",
+                        "OPTIMIZATION",
+                    ),
+                    Sequence(
+                        "MAINTAINED",
+                        "BY",
+                        OneOf("SYSTEM", "USER", "REPLICATION", "FEDERATED_TOOL"),
+                    ),
+                ),
+            ),
+            # Create LIKE syntax, with Db2 copy options.
+            Sequence(
+                "LIKE",
+                Ref("TableReferenceSegment"),
+                AnySetOf(
+                    Sequence(
+                        OneOf("INCLUDING", "EXCLUDING"),
+                        "COLUMN",
+                        "DEFAULTS",
+                    ),
+                    Sequence(
+                        OneOf("INCLUDING", "EXCLUDING"),
+                        "IDENTITY",
+                        Sequence("COLUMN", "ATTRIBUTES", optional=True),
+                    ),
+                ),
+            ),
+            # Staging table definition for a materialized query table.
+            Sequence(
+                Bracketed(
+                    Delimited(Ref("SingleIdentifierGrammar")),
+                    optional=True,
+                ),
+                "FOR",
+                Ref("TableReferenceSegment"),
+                "PROPAGATE",
+                "IMMEDIATE",
+            ),
+        ),
+        Ref("TableEndClauseSegment", optional=True),
+    )
+
+
 class NamedArgumentSegment(BaseSegment):
     """Named argument to a function.
 

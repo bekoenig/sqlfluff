@@ -1,0 +1,509 @@
+# YML test files are auto-generated from SQL files and should not be edited by
+# hand. To help enforce this, the "hash" field in the file must match a hash
+# computed by SQLFluff when running the tests. Please run
+# `python test/generate_parse_fixture_yml.py`  to generate them after adding or
+# altering SQL files.
+_hash: 60638b40d89a1b13ba3e352f69c7c9fcb274209c61459c8de2dbdf5fd2f5e186
+file:
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_bracketed
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_no_data
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: 'NO'
+    - keyword: DATA
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_data
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: DATA
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_columns
+    - bracketed:
+      - start_bracket: (
+      - naked_identifier: a
+      - comma: ','
+      - naked_identifier: b
+      - end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+          - keyword: SELECT
+          - select_clause_element:
+              column_reference:
+                naked_identifier: x
+          - comma: ','
+          - select_clause_element:
+              column_reference:
+                naked_identifier: y
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: 'NO'
+    - keyword: DATA
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_one_column
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              column_reference:
+                naked_identifier: x
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: DATA
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_as_data_capture
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: 'NO'
+    - keyword: DATA
+    - table_end_clause_segment:
+      - keyword: DATA
+      - keyword: CAPTURE
+      - keyword: CHANGES
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_including
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: INCLUDING
+    - keyword: COLUMN
+    - keyword: DEFAULTS
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_excluding
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: EXCLUDING
+    - keyword: COLUMN
+    - keyword: DEFAULTS
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_identity
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: INCLUDING
+    - keyword: IDENTITY
+    - keyword: COLUMN
+    - keyword: ATTRIBUTES
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_no_identity
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: EXCLUDING
+    - keyword: IDENTITY
+    - keyword: COLUMN
+    - keyword: ATTRIBUTES
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_all
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: INCLUDING
+    - keyword: COLUMN
+    - keyword: DEFAULTS
+    - keyword: INCLUDING
+    - keyword: IDENTITY
+    - keyword: COLUMN
+    - keyword: ATTRIBUTES
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_tablespace
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - table_end_clause_segment:
+        tablespace_clause:
+          keyword: IN
+          tablespace_reference:
+            naked_identifier: ts
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_like_compress
+    - keyword: LIKE
+    - table_reference:
+        naked_identifier: s
+    - keyword: INCLUDING
+    - keyword: COLUMN
+    - keyword: DEFAULTS
+    - table_end_clause_segment:
+      - keyword: COMPRESS
+      - keyword: 'YES'
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: DATA
+    - keyword: INITIALLY
+    - keyword: DEFERRED
+    - keyword: REFRESH
+    - keyword: DEFERRED
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt_immediate
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: REFRESH
+    - keyword: IMMEDIATE
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt_options
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: REFRESH
+    - keyword: IMMEDIATE
+    - keyword: ENABLE
+    - keyword: QUERY
+    - keyword: OPTIMIZATION
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt_system
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: MAINTAINED
+    - keyword: BY
+    - keyword: SYSTEM
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt_user
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: MAINTAINED
+    - keyword: BY
+    - keyword: USER
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_mqt_no_data
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: AS
+    - bracketed:
+        start_bracket: (
+        select_statement:
+          select_clause:
+            keyword: SELECT
+            select_clause_element:
+              wildcard_expression:
+                wildcard_identifier:
+                  star: '*'
+          from_clause:
+            keyword: FROM
+            from_expression:
+              from_expression_element:
+                table_expression:
+                  table_reference:
+                    naked_identifier: s
+        end_bracket: )
+    - keyword: WITH
+    - keyword: 'NO'
+    - keyword: DATA
+- statement_terminator: ;
+- statement:
+    create_table_statement:
+    - keyword: CREATE
+    - keyword: TABLE
+    - table_reference:
+        naked_identifier: t_staging
+    - bracketed:
+        start_bracket: (
+        naked_identifier: a
+        end_bracket: )
+    - keyword: FOR
+    - table_reference:
+        naked_identifier: mqt
+    - keyword: PROPAGATE
+    - keyword: IMMEDIATE
+- statement_terminator: ;
